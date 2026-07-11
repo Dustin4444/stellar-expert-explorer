@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react'
-import {StrKey} from '@stellar/stellar-base'
+import {StrKey} from '@stellar/stellar-sdk'
 import ForceGraph2D from 'react-force-graph-2d'
 import {usePageMetadata, useWindowWidth} from '@stellar-expert/ui-framework'
 import {drawNode, getLinkColor} from './graph-drawing-primitives'

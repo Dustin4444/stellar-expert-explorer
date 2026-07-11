@@ -1,6 +1,6 @@
 import React from 'react'
 import {useRouteMatch} from 'react-router'
-import {StrKey} from '@stellar/stellar-base'
+import {StrKey} from '@stellar/stellar-sdk'
 import {
     AccountAddress,
     Amount,

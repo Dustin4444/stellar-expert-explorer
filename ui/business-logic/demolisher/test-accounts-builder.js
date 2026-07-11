@@ -1,4 +1,4 @@
-import {Asset, Keypair, Operation, Account, TransactionBuilder, Transaction} from '@stellar/stellar-base'
+import {Asset, Keypair, Operation, Account, TransactionBuilder, Transaction} from '@stellar/stellar-sdk'
 import {Horizon} from '@stellar/stellar-sdk'
 
 const server = new Horizon.Server('https://horizon-testnet.stellar.org')

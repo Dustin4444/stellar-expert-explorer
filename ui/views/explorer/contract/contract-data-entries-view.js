@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {xdr} from '@stellar/stellar-base'
+import {xdr} from '@stellar/stellar-sdk'
 import {useParams} from 'react-router'
 import {UtcTimestamp, AccountAddress, ScVal, useExplorerPaginatedApi, Dropdown, usePageMetadata} from '@stellar-expert/ui-framework'
 import {navigation} from '@stellar-expert/navigation'

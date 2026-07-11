@@ -1,6 +1,6 @@
 import React from 'react'
 import {useParams} from 'react-router'
-import {StrKey, xdr} from '@stellar/stellar-base'
+import {StrKey, xdr} from '@stellar/stellar-sdk'
 import {useExplorerApi, AccountAddress, usePageMetadata} from '@stellar-expert/ui-framework'
 import config from '../../../app-settings'
 import {applySorobanConfigChanges} from './soroban-config-changes-tracker'

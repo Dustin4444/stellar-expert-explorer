@@ -1,6 +1,6 @@
 import React from 'react'
 import {useParams} from 'react-router'
-import {StrKey} from '@stellar/stellar-base'
+import {StrKey} from '@stellar/stellar-sdk'
 import {AccountAddress, UtcTimestamp, useExplorerPaginatedApi, usePageMetadata} from '@stellar-expert/ui-framework'
 import {resolvePath} from '../../../business-logic/path'
 import ErrorNotificationBlock from '../../components/error-notification-block'

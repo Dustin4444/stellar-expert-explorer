@@ -1,4 +1,4 @@
-import {StrKey} from '@stellar/stellar-base'
+import {StrKey} from '@stellar/stellar-sdk'
 import {parseStellarGenericId} from '@stellar-expert/ui-framework'
 
 const searchTypeMap = {
