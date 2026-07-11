@@ -33,7 +33,7 @@
     "@stellar-expert/tx-signers-inspector": "^1.8.2",
     "@stellar-expert/ui-framework": "1.21.3",
     "@stellar/stellar-base": "15.0.0",
-    "@stellar/stellar-sdk": "15.0.1",
+    "@stellar/stellar-sdk": "16.0.0",
     "classnames": "^2.3.2",
     "deepmerge": "^4.3.1",
     "history": "^4.10.1",
@@ -48,7 +48,7 @@
     "throttle-debounce": "^5.0.2"
   },
   "devDependencies": {
-    "@redocly/cli": "^1.25.11",
+    "@redocly/cli": "^2.34.0",
     "@stellar-expert/eslint-config-js": "^1.1.0",
     "@stellar-expert/eslint-config-react": "^1.1.0",
     "@stellar-expert/webpack-template": "1.5.1",
