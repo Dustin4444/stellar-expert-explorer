@@ -21,6 +21,8 @@ export async function onRequest(context) {
         const proxied = new Request(target, request)
         //add proxy validation header
         proxied.headers.set('x-proxy-validation', proxyValidation)
+        proxied.headers.set('x-proxy-validation', proxyValidation)
+        console.log('Prerender routed for ' + url.pathname)
         try {
             const resp = await fetch(proxied)
             // prepend API origin
@@ -42,3 +44,5 @@ export async function onRequest(context) {
 
     return next() // everything else - skip middleware
 }
+
+console.log('Prerender proxy initialized')

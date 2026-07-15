@@ -14,13 +14,7 @@ module.exports = initWebpackConfig({
         }
     },
     outputPath,
-    staticFilesPath: [
-        './static/',
-        {
-            from: path.join(__dirname, './static-cloudflare'),
-            info: {minimized: true}
-        }
-    ],
+    staticFilesPath: './static/',
     scss: {
         additionalData: '@import "~@stellar-expert/ui-framework/basic-styles/variables.scss";',
         sassOptions: {
