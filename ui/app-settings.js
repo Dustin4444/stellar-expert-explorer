@@ -19,6 +19,9 @@ class AppSettings {
         if (TURNSTILE_KEY) {
             this.turnstileKey = TURNSTILE_KEY
         }
+        if (window.forcedExplorerApiOrigin) {
+            this.apiEndpoint = window.forcedExplorerApiOrigin
+        }
     }
 
     networks = {
