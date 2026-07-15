@@ -2,6 +2,8 @@ const path = require('path')
 const {initWebpackConfig} = require('@stellar-expert/webpack-template')
 const pkgInfo = require('./package.json')
 
+const {API_ENDPOINT, DIRECTORY_ADMINS, OAUTH_GITHUB_CLIENTID, TURNSTILE_KEY} = process.env
+
 module.exports = initWebpackConfig({
     entries: {
         app: {
@@ -19,7 +21,13 @@ module.exports = initWebpackConfig({
         }
     },
     define: {
-        appVersion: pkgInfo.version
+        appVersion: pkgInfo.version,
+        envSettings: {
+            API_ENDPOINT,
+            DIRECTORY_ADMINS,
+            OAUTH_GITHUB_CLIENTID,
+            TURNSTILE_KEY
+        }
     },
     devServer: {
         host: '0.0.0.0',

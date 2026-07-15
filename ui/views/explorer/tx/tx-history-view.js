@@ -15,6 +15,7 @@ import GridDataActionsView from '../../components/grid-data-actions'
 import TxFilterView from './tx-filter-view'
 
 export default withErrorBoundary(function TxHistoryView({presetFilter}) {
+    //TODO: replace deepmerge with a simple merge function
     const [filters, setFilters] = useState(presetFilter ? deepMerge(parseFiltersFromQuery(), presetFilter) : (parseFiltersFromQuery() || {}))
     const updateLocation = useCallback(function (params) {
         const res = {...params}

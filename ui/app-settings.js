@@ -1,31 +1,52 @@
-import deepMerge from 'deepmerge'
 import {setStellarNetwork, getCurrentStellarNetwork} from '@stellar-expert/ui-framework'
-import appConfig from './app.config.json'
 
 class AppSettings {
-    constructor(clientConfig) {
-        let config = appConfig
-        if (clientConfig) {
-            config = deepMerge(config, clientConfig)
-        }
-        for (const key of Object.keys(config)) {
-            this[key] = config[key]
-        }
-
+    constructor() {
         const networkFromUrl = ((/^\/(?:\w+)\/(\w+)/i.exec(location.pathname) || [])[1] || '').toLowerCase()
         const availableNetworks = Object.keys(this.networks)
         setStellarNetwork(availableNetworks.includes(networkFromUrl) ? networkFromUrl : availableNetworks[0])
+        //load from env variables
+        const {API_ENDPOINT, DIRECTORY_ADMINS, OAUTH_GITHUB_CLIENTID, TURNSTILE_KEY} = envSettings
+        if (API_ENDPOINT) {
+            this.apiEndpoint = API_ENDPOINT
+        }
+        if (DIRECTORY_ADMINS) {
+            this.directoryAdmins = DIRECTORY_ADMINS.split(',').map(a => a.trim())
+        }
+        if (OAUTH_GITHUB_CLIENTID) {
+            this.oauth.github.clientId = OAUTH_GITHUB_CLIENTID
+        }
+        if (TURNSTILE_KEY) {
+            this.turnstileKey = TURNSTILE_KEY
+        }
     }
 
-    directoryAdmins
+    networks = {
+        public: {
+            title: 'public',
+            horizon: 'https://horizon.stellar.org',
+            passphrase: 'Public Global Stellar Network ; September 2015',
+            demolisher: 'GA4C3WUE7TL7GNXHF27B6Z54VMRCPTW2JH2OQRHH4U2EHPI6CCLMERGE'
+        },
+        testnet: {
+            title: 'testnet',
+            horizon: 'https://horizon-testnet.stellar.org',
+            passphrase: 'Test SDF Network ; September 2015',
+            demolisher: 'GA4C3WUE7TL7GNXHF27B6Z54VMRCPTW2JH2OQRHH4U2EHPI6CCLMERGE'
+        }
+    }
 
-    apiEndpoint
+    apiEndpoint = 'https://api.stellar.expert'
 
-    networks
+    directoryAdmins = []
 
-    oauth
+    oauth = {
+        github: {
+            clientId: '40b33b22410d95480eb2'
+        }
+    }
 
-    turnstileKey
+    turnstileKey = '1x00000000000000000000BB'
 
     get activeNetwork() {
         return getCurrentStellarNetwork()
@@ -49,6 +70,6 @@ class AppSettings {
     }
 }
 
-const appSettings = new AppSettings(window.clientConfig)
+const appSettings = new AppSettings()
 
 export default appSettings

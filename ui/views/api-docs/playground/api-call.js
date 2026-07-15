@@ -1,4 +1,4 @@
-import config from '../../../app.config.json'
+import settings from '../../../app-settings'
 
 /**
  *
@@ -8,7 +8,7 @@ import config from '../../../app.config.json'
  * @return {Promise<*|{error: string}>}
  */
 export async function performApiCall(endpointWithQuery, {method = 'GET', authKey} = {}) {
-    let url = `${config.apiEndpoint}${endpointWithQuery}`
+    let url = `${settings.apiEndpoint}${endpointWithQuery}`
     if (!!authKey) {
         const params = new URL(url).search || []
         url += `${params.length ? '&' : '?'}api-key=${authKey}`

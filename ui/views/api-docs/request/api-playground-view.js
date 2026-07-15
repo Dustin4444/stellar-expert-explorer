@@ -1,9 +1,8 @@
 import React, {useCallback, useEffect, useState} from 'react'
 import {Button, ButtonGroup, CodeBlock, CopyToClipboard} from '@stellar-expert/ui-framework'
-import config from '../../../app.config.json'
+import settings from '../../../app-settings'
 import ApiPlaygroundParametersView from './api-playground-parameters-view'
 import buildRequestString from './api-request-builder'
-import {instanceOf} from 'prop-types'
 
 export default function ApiPlaygroundView({path, data = {}}) {
     const {parameters: params} = data
@@ -33,7 +32,7 @@ export default function ApiPlaygroundView({path, data = {}}) {
 
     const onSend = useCallback(() => {
         setInProgress(true)
-        fetch(config.apiEndpoint + requestString)
+        fetch(settings.apiEndpoint + requestString)
             .then(r => {
                 return typeof r === 'object' ? r.json() : {error: 'Unable to get a response'}
             })
