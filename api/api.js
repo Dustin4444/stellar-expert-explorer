@@ -2,6 +2,7 @@
     const http = require('http')
     const express = require('express')
     const bodyParser = require('body-parser')
+    const qs = require('qs')
 
     process.env.TZ = 'Etc/UTC'
 
@@ -19,6 +20,12 @@
         const logger = require('morgan')
         app.use(logger('dev'))
     }
+    app.set('query parser', query =>
+        qs.parse(query, {
+            arrayLimit: 500,
+            throwOnLimitExceeded: true
+        })
+    )
 
     app.use(bodyParser.json())
     app.use(bodyParser.urlencoded({extended: false}))
