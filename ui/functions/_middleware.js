@@ -14,19 +14,18 @@ export async function onRequest(context) {
     const ua = request.headers.get('user-agent') || ''
 
     const url = new URL(request.url)
-    if (url.pathname.startsWith('/thumbnail/') || // proxy all /thumbnail/* requests
-        isHtmlNav && botRegex.test(ua)) { //proxy all html requests from crawlers
+    if (url.pathname.startsWith('/thumbnail/')) {// || // proxy all /thumbnail/* requests
+        //isHtmlNav && botRegex.test(ua)) { //proxy all html requests from crawlers
         // reroute
         const target = new URL(url.pathname + url.search, `http://${prerenderHost}`)
         const proxied = new Request(target, request)
         //add proxy validation header
         proxied.headers.set('x-proxy-validation', proxyValidation)
-        proxied.headers.set('x-proxy-validation', proxyValidation)
         console.log('Prerender routed for ' + url.pathname)
         try {
             const resp = await fetch(proxied)
             // prepend API origin
-            if (resp.ok && (resp.headers.get('content-type') || '').includes('text/html')) {
+            /*if (resp.ok && (resp.headers.get('content-type') || '').includes('text/html')) {
                 const prerenderInitScript = `<script>window.forcedExplorerApiOrigin=${JSON.stringify(prerenderApiOrigin)};document.currentScript.remove()</script>`
                 return new HTMLRewriter()
                     .on('head', {
@@ -35,7 +34,7 @@ export async function onRequest(context) {
                         }
                     })
                     .transform(resp)
-            }
+            }*/
             return resp // non-HTML -> pass through
         } catch (_) {
             return new Response('Error rendering requested page', {status: 500})
