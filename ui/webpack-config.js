@@ -4,6 +4,8 @@ const pkgInfo = require('./package.json')
 
 const {API_ENDPOINT, DIRECTORY_ADMINS, OAUTH_GITHUB_CLIENTID, TURNSTILE_KEY} = process.env
 
+const outputPath = path.join(__dirname, './public/')
+
 module.exports = initWebpackConfig({
     entries: {
         app: {
@@ -11,8 +13,14 @@ module.exports = initWebpackConfig({
             htmlTemplate: './static-template/index.html'
         }
     },
-    outputPath: path.join(__dirname, './public/'),
-    staticFilesPath: './static/',
+    outputPath,
+    staticFilesPath: [
+        './static/',
+        {
+            from: path.join(__dirname, './static-cloudflare'),
+            info: {minimized: true}
+        }
+    ],
     scss: {
         additionalData: '@import "~@stellar-expert/ui-framework/basic-styles/variables.scss";',
         sassOptions: {
