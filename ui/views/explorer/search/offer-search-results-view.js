@@ -1,6 +1,5 @@
 import React from 'react'
-import {AssetLink, AccountAddress, OfferLink, Amount, UtcTimestamp, useExplorerApi} from '@stellar-expert/ui-framework'
-import {AssetDescriptor} from '@stellar-expert/asset-descriptor'
+import {AssetLink, AccountAddress, OfferLink, Amount, UtcTimestamp, useExplorerApi, AssetDescriptor} from '@stellar-expert/ui-framework'
 import {formatWithPrecision, formatPrice, approximatePrice} from '@stellar-expert/formatter'
 import {resolvePath} from '../../../business-logic/path'
 import SearchResultsSectionView from './search-results-section-view'

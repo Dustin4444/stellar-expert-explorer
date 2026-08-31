@@ -1,5 +1,4 @@
-import {AssetDescriptor} from '@stellar-expert/asset-descriptor'
-import {InfoTooltip as Info, AssetLink, withErrorBoundary} from '@stellar-expert/ui-framework'
+import {InfoTooltip as Info, AssetLink, withErrorBoundary, AssetDescriptor} from '@stellar-expert/ui-framework'
 import {memo} from 'react'
 
 export default withErrorBoundary(function AssetListAssetsView({assetList}) {

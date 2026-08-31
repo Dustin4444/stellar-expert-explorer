@@ -1,8 +1,7 @@
 import React, {useCallback, useRef} from 'react'
 import cn from 'classnames'
-import {AssetDescriptor} from '@stellar-expert/asset-descriptor'
 import {formatWithAutoPrecision, formatWithPrecision, fromStroops} from '@stellar-expert/formatter'
-import {AssetLink, useAssetMeta, useOnScreen} from '@stellar-expert/ui-framework'
+import {AssetLink, useAssetMeta, useOnScreen, AssetDescriptor} from '@stellar-expert/ui-framework'
 
 export const AccountTrustlineBalanceView = React.memo(
     function AccountTrustlineBalanceView({trustline, currency, onClick}) {

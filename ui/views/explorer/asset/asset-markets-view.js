@@ -1,6 +1,5 @@
 import React from 'react'
-import {Dropdown, useAssetMeta, useDependantState} from '@stellar-expert/ui-framework'
-import {AssetDescriptor} from '@stellar-expert/asset-descriptor'
+import {Dropdown, useAssetMeta, useDependantState, AssetDescriptor} from '@stellar-expert/ui-framework'
 import {navigation} from '@stellar-expert/ui-framework'
 import {resolvePath} from '../../../business-logic/path'
 import {apiCall} from '../../../models/api'

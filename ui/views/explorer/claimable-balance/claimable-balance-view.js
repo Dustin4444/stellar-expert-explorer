@@ -1,6 +1,6 @@
 import React from 'react'
-import {useRouteMatch} from '@stellar-expert/ui-framework'
-import {StrKey} from '@stellar/stellar-sdk'
+import {useRouteMatch, AssetDescriptor} from '@stellar-expert/ui-framework'
+import {StrKey, xdr} from '@stellar/stellar-sdk'
 import {
     AccountAddress,
     Amount,
@@ -9,7 +9,6 @@ import {
     usePageMetadata,
     UtcTimestamp
 } from '@stellar-expert/ui-framework'
-import {AssetDescriptor} from '@stellar-expert/asset-descriptor'
 import ErrorNotificationBlock from '../../components/error-notification-block'
 import {ClaimableBalanceStatus} from './claimable-balance-status-view'
 import {formatClaimableBalanceValue} from './account-claimable-balance-row-view'
@@ -82,7 +81,7 @@ function ClaimableBalanceSummary({balance}) {
 function normalizeClaimableBalanceId(id) {
     try {
         if (id.startsWith('B')) {
-            id = StrKey.decodeClaimableBalance(id).toString('hex')
+            id = xdr.encodeBytes(StrKey.decodeClaimableBalance(id), 'hex')
         } else if (!/^[a-f0-9]{64}$/.test(id))
             return null
     } catch (e) {
@@ -95,7 +94,7 @@ function encodeBalanceAsAddress(id) {
     try {
         if (id.startsWith('B'))
             return id
-        return StrKey.encodeClaimableBalance(Buffer.from(id, 'hex'))
+        return StrKey.encodeClaimableBalance(xdr.decodeBytes(id, 'hex'))
     } catch (error) {
         return null
     }

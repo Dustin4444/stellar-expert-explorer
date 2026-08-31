@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {AssetLink, Amount, OfferLink, useDependantState, loadAccountOffers} from '@stellar-expert/ui-framework'
-import {parseAssetFromObject} from '@stellar-expert/asset-descriptor'
+import {AssetLink, Amount, OfferLink, useDependantState, loadAccountOffers, parseAssetFromObject} from '@stellar-expert/ui-framework'
 import GridDataActionsView from '../../components/grid-data-actions'
 
 function AccountOffersView({address}) {

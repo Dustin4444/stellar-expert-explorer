@@ -1,7 +1,6 @@
 import React from 'react'
-import {AssetLink, Amount, AccountAddress, OfferLink, UtcTimestamp, useExplorerPaginatedApi} from '@stellar-expert/ui-framework'
+import {AssetLink, Amount, AccountAddress, OfferLink, UtcTimestamp, useExplorerPaginatedApi, AssetDescriptor} from '@stellar-expert/ui-framework'
 import {formatPrice} from '@stellar-expert/formatter'
-import {AssetDescriptor} from '@stellar-expert/asset-descriptor'
 import GridDataActionsView from '../../components/grid-data-actions'
 import {resolvePath} from '../../../business-logic/path'
 

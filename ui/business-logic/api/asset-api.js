@@ -3,9 +3,9 @@ import {
     useExplorerApi,
     loadAccount,
     useAssetMeta,
-    ExplorerApiResult
+    ExplorerApiResult,
+    AssetDescriptor
 } from '@stellar-expert/ui-framework'
-import {AssetDescriptor} from '@stellar-expert/asset-descriptor'
 import {fromStroops} from '@stellar-expert/formatter'
 
 export function useAssetInfo(asset) {

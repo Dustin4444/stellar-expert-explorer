@@ -1,4 +1,5 @@
 import React from 'react'
+import {xdr} from '@stellar/stellar-sdk'
 import {inspectTransactionSigners} from '@stellar-expert/tx-signers-inspector'
 import {
     BlockSelect,
@@ -10,7 +11,7 @@ import {
 } from '@stellar-expert/ui-framework'
 
 export default function TxSignaturesView({parsedTx}) {
-    const [{xdr, potentialSigners}, setPotentialSigners] = useDependantState(() => {
+    const [{signedTx, potentialSigners}, setPotentialSigners] = useDependantState(() => {
         let {tx} = parsedTx
         let feeAccount = tx.source
 
@@ -22,7 +23,7 @@ export default function TxSignaturesView({parsedTx}) {
         //check if the source account is the only signer
         if (tx.signatures.length === 1 && findKeysBySignatureHint(tx.signatures[0], [sourceAccount]).length) {
             return Promise.resolve().then(() => setPotentialSigners({
-                xdr: tx,
+                signedTx: tx,
                 potentialSigners: [sourceAccount]
             }))
         }
@@ -31,9 +32,9 @@ export default function TxSignaturesView({parsedTx}) {
             .then(schema => {
                 const potential = schema.getAllPotentialSigners();
                 [sourceAccount, feeAccount].map(acc => !potential.includes(acc) && potential.push(acc))
-                setPotentialSigners({xdr: tx, potentialSigners: potential})
+                setPotentialSigners({signedTx: tx, potentialSigners: potential})
             })
-        return {xdr: tx, potentialSigners: null, prop: 0}
+        return {signedTx: tx, potentialSigners: null, prop: 0}
     }, [parsedTx.id])
 
     return <div className="segment blank space">
@@ -45,9 +46,9 @@ export default function TxSignaturesView({parsedTx}) {
         <hr className="flare"/>
         {!potentialSigners ?
             <div className="loader"/> :
-            xdr.signatures.map(signature => {
-                const sig = signature.signature().toString('base64')
-                const hint = signature.hint()
+            signedTx.signatures.map(signature => {
+                const sig = xdr.encodeBytes(signature.signature.toBytes(), 'base64')
+                const hint = signature.hint
                 const possibleSigners = findKeysBySignatureHint(signature, potentialSigners)
 
                 //TODO: we actually CAN find a signer in case of collision (extremely rare event) - just need to verify a signature using each of the candidate pubkeys

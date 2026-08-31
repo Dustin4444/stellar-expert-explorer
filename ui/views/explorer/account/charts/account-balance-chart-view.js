@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {Dropdown, AssetSelector, formatExplorerLink} from '@stellar-expert/ui-framework'
-import {AssetDescriptor} from '@stellar-expert/asset-descriptor'
+import {Dropdown, AssetSelector, formatExplorerLink, AssetDescriptor} from '@stellar-expert/ui-framework'
 import {formatWithAutoPrecision} from '@stellar-expert/formatter'
 import {navigation} from '@stellar-expert/ui-framework'
 import {useAccountBalanceHistory} from '../../../../business-logic/api/account-api'

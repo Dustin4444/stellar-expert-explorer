@@ -1,7 +1,6 @@
 import React, {useCallback} from 'react'
-import {useRouteMatch, navigation} from '@stellar-expert/ui-framework'
+import {useRouteMatch, navigation, AssetDescriptor} from '@stellar-expert/ui-framework'
 import {AssetLink, Amount, InfoTooltip as Info, useExplorerApi, usePageMetadata} from '@stellar-expert/ui-framework'
-import {AssetDescriptor} from '@stellar-expert/asset-descriptor'
 import {formatWithPrecision} from '@stellar-expert/formatter'
 import appSettings from '../../../app-settings'
 import {resolvePath} from '../../../business-logic/path'

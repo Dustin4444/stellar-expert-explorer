@@ -1,5 +1,6 @@
 import React, {useCallback, useState} from 'react'
 import deepMerge from 'deepmerge'
+import {xdr} from '@stellar/stellar-sdk'
 import {
     TxOperationsList,
     UtcTimestamp,
@@ -91,10 +92,8 @@ const TxMemo = React.memo(function TxMemo({tx}) {
     if (!tx.memo)
         return null
     let value = tx.memo.value
-    if (tx.memo.type === 'text') {
-        value = value.toString()
-    } else if (value instanceof Buffer) {
-        value = value.toString('base64')
+    if (value instanceof Uint8Array) { //memo values are Uint8Array since SDK v17
+        value = tx.memo.type === 'text' ? new TextDecoder().decode(value) : xdr.encodeBytes(value, 'base64')
     }
     if (!value)
         return null

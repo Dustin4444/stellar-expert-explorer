@@ -60,13 +60,13 @@ export default function AppRouter({history}) {
                             <Loadable moduleKey="info"
                                       load={() => import(/* webpackChunkName: "info" */ './info/info-router')}/>
                         </Route>
-                        {/*public subscription landing*/}
-                        <Route path="/subscription">
-                            <Loadable moduleKey="subscription"
-                                      load={() => import(/* webpackChunkName: "subscription" */ './subscription/subscription-landing-view')}/>
+                        {/*public pricing landing*/}
+                        <Route path="/pricing">
+                            <Loadable moduleKey="pricing"
+                                      load={() => import(/* webpackChunkName: "pricing" */ './pricing/pricing-view')}/>
                         </Route>
                         {/*billing dashboard*/}
-                        <Route path="/account">
+                        {/*<Route path="/account">
                             <Loadable moduleKey="billing" load={loadBilling}/>
                         </Route>
                         <Route path="/admin">
@@ -74,7 +74,7 @@ export default function AppRouter({history}) {
                         </Route>
                         <Route path="/login">
                             <Loadable moduleKey="billing" load={loadBilling}/>
-                        </Route>
+                        </Route>*/}
                         {/*not found*/}
                         <Route component={NotFoundView}/>
                     </RouterSwitch>

@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {AssetLink, Amount, AccountAddress, OfferLink} from '@stellar-expert/ui-framework'
-import {AssetDescriptor, parseAssetFromObject} from '@stellar-expert/asset-descriptor'
+import {AssetLink, Amount, AccountAddress, OfferLink, AssetDescriptor, parseAssetFromObject} from '@stellar-expert/ui-framework'
 import {shortenString, formatWithAutoPrecision} from '@stellar-expert/formatter'
 
 export default function EffectDetailsView({effect, operation}) {

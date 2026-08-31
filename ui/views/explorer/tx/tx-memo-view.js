@@ -1,6 +1,7 @@
 import React, {useRef} from 'react'
 import cn from 'classnames'
 import PropTypes from 'prop-types'
+import {xdr} from '@stellar/stellar-sdk'
 import {Dropdown, InfoTooltip as Info, useDependantState} from '@stellar-expert/ui-framework'
 import {resolvePath} from '../../../business-logic/path'
 
@@ -30,13 +31,9 @@ class MemoFormatter {
     }
 
     encodeTo(encoding) {
-        switch (encoding) {
-            case 'base64':
-                return this.memo.toString('base64')
-            case 'hex':
-                return this.memo.toString('hex')
-        }
-        throw new Error(`Not supported memo encoding: ${encoding}`)
+        if (encoding !== 'base64' && encoding !== 'hex')
+            throw new Error(`Not supported memo encoding: ${encoding}`)
+        return typeof this.memo === 'string' ? this.memo : xdr.encodeBytes(this.memo, encoding)
     }
 
     get availableEncodings() {
@@ -57,13 +54,12 @@ class MemoFormatter {
     }
 
     format(encoding) {
-        if (!encoding || encoding === 'base64' || !this.memo) {
-            if (!this.memo)
-                return '[empty]'
-            if (this.memo instanceof Uint8Array)
-                return this.memo.toString()
+        if (!this.memo)
+            return '[empty]'
+        if (this.memo instanceof Uint8Array)
+            return this.encodeTo(encoding || 'base64')
+        if (!encoding)
             return this.memo
-        }
         return this.encodeTo(encoding)
     }
 }

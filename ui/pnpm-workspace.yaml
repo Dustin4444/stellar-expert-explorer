@@ -1,4 +1,5 @@
 allowBuilds:
+  browser-tabs-lock: false
   core-js: true
   protobufjs: false
 shamefullyHoist: true

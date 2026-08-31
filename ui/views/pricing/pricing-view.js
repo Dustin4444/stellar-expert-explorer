@@ -5,9 +5,9 @@ import FeaturesBlockView from './features-block-view'
 import PhotonsBlockView from './photons-block-view'
 import FaqBlockView from './faq-block-view'
 import CtaBlockView from './cta-block-view'
-import './subscription-landing.scss'
+import './pricing.scss'
 
-export default function SubscriptionLandingView() {
+export default function PricingView() {
     return <div className="subscription-landing">
         <HeroBlockView/>
         <PlansBlockView/>
