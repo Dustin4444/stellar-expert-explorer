@@ -6,3 +6,6 @@ shamefullyHoist: true
 autoInstallPeers: true
 minimumReleaseAgeExclude:
   - '@stellar-expert/ui-framework'
+  - '@stellar-expert/contract-wasm-interface-parser'
+  - '@stellar-expert/tx-meta-effects-parser'
+  - '@stellar-expert/tx-signers-inspector'
