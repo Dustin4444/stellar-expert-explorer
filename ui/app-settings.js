@@ -1,5 +1,4 @@
 import {setStellarNetwork, getCurrentStellarNetwork} from '@stellar-expert/ui-framework'
-import config from './app.config.json'
 
 class AppSettings {
     constructor() {
