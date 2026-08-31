@@ -1,8 +1,7 @@
 import React, {useState} from 'react'
 import {xdr} from '@stellar/stellar-sdk'
-import {useParams} from 'react-router'
+import {useParams, navigation} from '@stellar-expert/ui-framework'
 import {UtcTimestamp, AccountAddress, ScVal, useExplorerPaginatedApi, Dropdown, usePageMetadata} from '@stellar-expert/ui-framework'
-import {navigation} from '@stellar-expert/navigation'
 import GridDataActionsView from '../../components/grid-data-actions'
 import ErrorNotificationBlock from '../../components/error-notification-block'
 
@@ -82,11 +81,11 @@ export default function ContractDataEntriesView() {
 }
 
 function InstanceData({value}) {
-    const entry = xdr.ScVal.fromXDR(value, 'base64').instance()
+    const entry = xdr.ScVal.fromXdr(value, 'base64').instance
     return <div>
         <div>Executable: <ScVal value={value}/></div>
-        <div>Storage: {(entry.storage() || []).map(kv => <div>
-            <ScVal value={kv.key()}/>: <ScVal value={kv.val()}/>
+        <div>Storage: {(entry.storage || []).map((kv, i) => <div key={i}>
+            <ScVal value={kv.key}/>: <ScVal value={kv.val}/>
         </div>)}</div>
     </div>
 }

@@ -1,7 +1,6 @@
 import React from 'react'
-import {AccountAddress, Amount, formatExplorerLink, UtcTimestamp} from '@stellar-expert/ui-framework'
+import {AccountAddress, Amount, formatExplorerLink, UtcTimestamp, AssetDescriptor} from '@stellar-expert/ui-framework'
 import {formatWithAutoPrecision} from '@stellar-expert/formatter'
-import {AssetDescriptor} from '@stellar-expert/asset-descriptor'
 import {ClaimableBalanceStatus} from './claimable-balance-status-view'
 
 export function formatClaimableBalanceValue(value) {

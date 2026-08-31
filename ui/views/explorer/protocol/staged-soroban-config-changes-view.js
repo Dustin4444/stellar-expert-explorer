@@ -1,5 +1,5 @@
 import React from 'react'
-import {useParams} from 'react-router'
+import {useParams} from '@stellar-expert/ui-framework'
 import {StrKey, xdr} from '@stellar/stellar-sdk'
 import {useExplorerApi, AccountAddress, usePageMetadata} from '@stellar-expert/ui-framework'
 import config from '../../../app-settings'
@@ -16,14 +16,14 @@ export default function StagedSorobanConfigChangesView() {
         description: `Staged Soroban config changes ${id} for Stellar ${config.activeNetwork} network.`
     })
     try {
-        const configKey = xdr.ConfigUpgradeSetKey.fromXDR(id, 'base64')
-        const contract = StrKey.encodeContract(configKey.contractId())
-        const contentHash = configKey.contentHash()
-        const endpoint = `contract-state/${contract}/temporary/${encodeURIComponent(xdr.ScVal.scvBytes(contentHash).toXDR('base64'))}`
+        const configKey = xdr.ConfigUpgradeSetKey.fromXdr(id, 'base64')
+        const contract = StrKey.encodeContract(configKey.contractId.toBytes())
+        const contentHash = configKey.contentHash
+        const endpoint = `contract-state/${contract}/temporary/${encodeURIComponent(xdr.ScVal.scvBytes(contentHash.toBytes()).toXdr('base64'))}`
         const {data, loaded} = useExplorerApi(endpoint)
 
         return <StagedSorobanConfigChangesWrapper id={id}>
-            {loaded ? <StagedConfigInfo config={data} contract={contract} hash={contentHash.toString('hex')}/> : <div className="loader"/>}
+            {loaded ? <StagedConfigInfo config={data} contract={contract} hash={contentHash.toString()}/> : <div className="loader"/>}
         </StagedSorobanConfigChangesWrapper>
     } catch (e) {
         return <StagedSorobanConfigChangesWrapper id={id}>
@@ -50,11 +50,11 @@ function StagedConfigInfo({config, contract, hash}) {
     if (!historyLoaded)
         return <div className="loader"/>
     try {
-        const ledgerEntryValue = xdr.ScVal.fromXDR(config.value, 'base64')
-        const rawUpgradeSet = xdr.ConfigUpgradeSet.fromXDR(ledgerEntryValue._value)
+        const ledgerEntryValue = xdr.ScVal.fromXdr(config.value, 'base64')
+        const rawUpgradeSet = xdr.ConfigUpgradeSet.fromXdr(ledgerEntryValue.bytes.toBytes())
         const upgradeSet = {}
-        for (let v of rawUpgradeSet._attributes.updatedEntry) {
-            upgradeSet[v._arm] = serializeSettingsValue(v._value)
+        for (const entry of rawUpgradeSet.updatedEntry) {
+            upgradeSet[getUnionArm(entry)] = serializeSettingsValue(entry.value)
         }
         const fullHistory = applySorobanConfigChanges([{config_changes: upgradeSet}, ...data])
         return <div>
@@ -74,10 +74,19 @@ function StagedConfigInfo({config, contract, hash}) {
     }
 }
 
-function parseSettingsAttributes(attributes) {
+/**
+ * Resolve the name of the arm selected in an XDR union
+ * @param {{}} union
+ * @return {String|undefined} - undefined for void arms
+ */
+function getUnionArm(union) {
+    return Object.keys(union).find(key => key !== 'type')
+}
+
+function parseSettingsAttributes(struct) {
     const res = {}
-    for (const [key, value] of Object.entries(attributes)) {
-        if (key === 'ext' && value._switch === 0 && value._value === undefined)
+    for (const [key, value] of Object.entries(struct)) {
+        if (key === 'ext' && value.type === 'v0') //skip empty extension points
             continue
         res[key] = serializeSettingsValue(value)
     }
@@ -85,8 +94,8 @@ function parseSettingsAttributes(attributes) {
 }
 
 function serializeSettingsValue(value) {
-    if (value._attributes)
-        return parseSettingsAttributes(value._attributes)
+    if (value === null || value === undefined)
+        return null
     if (value instanceof Array)
         return value.map(item => serializeSettingsValue(item))
     switch (typeof value) {
@@ -94,8 +103,16 @@ function serializeSettingsValue(value) {
         case 'boolean':
         case 'number':
             return value
+        case 'bigint': //int64/uint64 settings do not fit into Number
+            return value.toString()
     }
-    if (value.toBigInt)
+    if (value.value instanceof Uint8Array) //opaque XDR alias (Hash, ContractId, etc.) rendered as hex
         return value.toString()
+    if (typeof value.type === 'string') { //nested union
+        const arm = getUnionArm(value)
+        return arm === undefined ? value.type : {[arm]: serializeSettingsValue(value[arm])}
+    }
+    if (typeof value === 'object')
+        return parseSettingsAttributes(value)
     throw new TypeError('Unsupported settings value type: ' + value)
 }

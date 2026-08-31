@@ -262,12 +262,12 @@ class DemolisherTxBuilder {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({transaction: transaction.toEnvelope().toXDR('base64')})
+            body: JSON.stringify({transaction: transaction.toEnvelope().toXdr('base64')})
         })
         if (!response.ok)
             throw new Error('Failed to obtain merge transaction signature confirmation')
         const parsed = await response.json()
-        return TransactionBuilder.fromXDR(parsed.transaction, appSettings.networkPassphrase)
+        return TransactionBuilder.fromXdr(parsed.transaction, appSettings.networkPassphrase)
     }
 
     /**

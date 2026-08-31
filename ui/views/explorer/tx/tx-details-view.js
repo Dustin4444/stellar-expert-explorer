@@ -1,4 +1,5 @@
 import React from 'react'
+import {xdr} from '@stellar/stellar-sdk'
 import {
     BlockSelect,
     AccountAddress,
@@ -156,8 +157,8 @@ export default withErrorBoundary(function TxDetailsView({tx, embedded}) {
                         {!!parsedTx.tx.innerTransaction && <>
                             <dt>Inner transaction:</dt>
                             <dd>
-                                <a href={transaction.hash().toString('hex')}>
-                                    {shortenString(transaction.hash().toString('hex'), 12)}
+                                <a href={xdr.encodeBytes(transaction.hash(), 'hex')}>
+                                    {shortenString(xdr.encodeBytes(transaction.hash(), 'hex'), 12)}
                                 </a>
                                 <Info link="https://github.com/stellar/stellar-protocol/blob/master/core/cap-0015.md">
                                     The transaction that has been sponsored by this bump fee transaction.</Info>

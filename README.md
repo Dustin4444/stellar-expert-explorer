@@ -74,7 +74,8 @@ pnpm i
 
 #### Configuration
 
-All configuration parameters stored in `app.config.json` file.
+All configuration parameters stored in `app.config.json` file. 
+
 
 - `apiEndpoint` - URL of the API sever
 - `networks` - supported Stellar networks configuration
@@ -85,6 +86,35 @@ All configuration parameters stored in `app.config.json` file.
   Directory repository
 - `oauth` - OAuth providers configuration
     - `clientId` - application ClientId obtained from OAuth provider
+- `billingApiEndpoint` - URL of the billing API server (separate service from
+  the explorer API)
+- `auth0` - Auth0 configuration for the billing dashboard
+    - `domain` - Auth0 tenant domain
+    - `clientId` - Auth0 SPA application ClientId
+    - `audience` - Auth0 API identifier; also used as the namespace prefix for
+      the custom `/email` and `/roles` token claims
+
+Plans and prices are not configurable - they live in
+`business-logic/billing/api-plans.js`, which mirrors the billing server's own
+catalogue.
+
+The Auth0 tenant must publish both custom claims on the **access token**, not only
+on the ID token. The dashboard reads roles from the ID token to decide which
+sidebar to render, while the billing API authorizes admin-only routes from the
+access token it verifies — a claim present on one token but not the other lets the
+admin dashboard render and then fail every request with
+`403 Admin access required`. The Login flow Action needs:
+
+```js
+exports.onExecutePostLogin = async (event, api) => {
+    const namespace = 'https://api.stellar.expert' //must equal `auth0.audience`
+    api.accessToken.setCustomClaim(`${namespace}/email`, event.user.email)
+    if (event.authorization) { //undefined unless RBAC is enabled on the API
+        api.idToken.setCustomClaim(`${namespace}/roles`, event.authorization.roles)
+        api.accessToken.setCustomClaim(`${namespace}/roles`, event.authorization.roles)
+    }
+}
+```
 
 Additional build options are located in `webpack-config.js`
 
@@ -103,17 +133,3 @@ pnpm build
 ```
 
 *(check for the generated files in the `./public` repository)*
-
-#### Re-generate Open API docs
-
-```
-pnpm build-api-docs 
-```
-
----
-
-### TBD
-
-- Provide access credentials for the test database
-- Review all existing tests and docs, move everything to this repository
-- Gradually transfer issues from the team bugtracker to Github Issues

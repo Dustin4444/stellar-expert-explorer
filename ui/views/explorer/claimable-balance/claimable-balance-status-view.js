@@ -1,6 +1,5 @@
 import React from 'react'
-import {InfoTooltip} from '@stellar-expert/ui-framework'
-import {getClaimableBalanceClaimStatus} from '@stellar-expert/claimable-balance-utils'
+import {InfoTooltip, getClaimableBalanceClaimStatus} from '@stellar-expert/ui-framework'
 
 const claimableBalanceStatusIcons = {
     available: 'icon-ok',

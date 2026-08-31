@@ -1,9 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {withRouter} from 'react-router'
+import {withRouter} from '@stellar-expert/ui-framework'
 import {useDependantState} from '@stellar-expert/ui-framework'
-
-const isEqual = require('react-fast-compare')
 
 const loadedModules = new Map()
 
@@ -26,7 +24,8 @@ function Loadable({load, moduleKey, ...otherProps}) {
             })
         return {module: null, error: null}
     }, [moduleKey || load])
-    if (!module) return <div className="loader"/>
+    if (!module)
+        return <div className="loader"/>
     return React.createElement(module, otherProps)
 
 }

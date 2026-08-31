@@ -6,10 +6,10 @@ import {
     Button,
     UtcTimestamp,
     useDependantState,
-    useExplorerPaginatedApi
+    useExplorerPaginatedApi,
+    AssetDescriptor
 } from '@stellar-expert/ui-framework'
-import {AssetDescriptor} from '@stellar-expert/asset-descriptor'
-import {navigation} from '@stellar-expert/navigation'
+import {navigation} from '@stellar-expert/ui-framework'
 import GridDataActionsView from '../../components/grid-data-actions'
 import {resolvePath} from '../../../business-logic/path'
 import AssetSparkLine from './charts/asset-sparkline-chart-view'

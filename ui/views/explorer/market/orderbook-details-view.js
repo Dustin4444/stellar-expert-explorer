@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types'
-import {Dropdown, useDependantState, loadOrderbook} from '@stellar-expert/ui-framework'
-import {AssetDescriptor} from '@stellar-expert/asset-descriptor'
+import {Dropdown, useDependantState, loadOrderbook, AssetDescriptor} from '@stellar-expert/ui-framework'
 import {formatWithAutoPrecision, formatWithGrouping} from '@stellar-expert/formatter'
 import {getCssVar, hexToRgbArray, rgbArrayToRgba} from '../../../util/css-var-utils'
 
