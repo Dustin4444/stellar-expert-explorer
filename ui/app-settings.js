@@ -1,5 +1,4 @@
 import {setStellarNetwork, getCurrentStellarNetwork} from '@stellar-expert/ui-framework'
-import config from './app.config.json'
 
 class AppSettings {
     constructor() {
@@ -73,11 +72,9 @@ class AppSettings {
 
     turnstileKey = '1x00000000000000000000BB'
 
-    //billing API server (separate service from the explorer API)
-    billingApiEndpoint = config.billingApiEndpoint
+    billingApiEndpoint = 'https://api.stellar.expert'
 
-    //`audience` doubles as the namespace prefix for the custom `/email` and `/roles` token claims
-    auth0 = {...config.auth0}
+    auth0 = {}
 
     get activeNetwork() {
         return getCurrentStellarNetwork()
