@@ -74,17 +74,8 @@ pnpm i
 
 #### Configuration
 
-All configuration parameters stored in `app.config.json` file. It is gitignored
-because it holds environment-specific credentials, so copy the template and edit
-the parameters:
+All configuration parameters stored in `app.config.json` file. 
 
-```
-cp default.config.json app.config.json
-```
-
-This step is required before the first build — `app-settings.js` imports
-`app.config.json` directly, so webpack fails to resolve the module while the file
-is missing. Credential fields are left empty in `default.config.json`.
 
 - `apiEndpoint` - URL of the API sever
 - `networks` - supported Stellar networks configuration
@@ -125,18 +116,6 @@ exports.onExecutePostLogin = async (event, api) => {
 }
 ```
 
-Enable RBAC under Applications → APIs → RBAC Settings, and log out and back in
-after changing the Action — with `cacheLocation: 'localstorage'` the SPA keeps
-serving the previously issued access token until it expires.
-
-Note that the frontend currently reads only `billingApiEndpoint` and `auth0`
-from this file. The remaining parameters are defaults declared
-in `app-settings.js`; editing them here has no effect. Any of them can be
-overridden at build time through the environment variables listed in
-`webpack-config.js` (`API_ENDPOINT`, `DIRECTORY_ADMINS`, `OAUTH_GITHUB_CLIENTID`,
-`TURNSTILE_KEY`, `BILLING_API_ENDPOINT`, `AUTH0_DOMAIN`, `AUTH0_CLIENT_ID`,
-`AUTH0_AUDIENCE`), which take precedence over the config file.
-
 Additional build options are located in `webpack-config.js`
 
 #### Start the application in the development mode
@@ -154,17 +133,3 @@ pnpm build
 ```
 
 *(check for the generated files in the `./public` repository)*
-
-#### Re-generate Open API docs
-
-```
-pnpm build-api-docs 
-```
-
----
-
-### TBD
-
-- Provide access credentials for the test database
-- Review all existing tests and docs, move everything to this repository
-- Gradually transfer issues from the team bugtracker to Github Issues
