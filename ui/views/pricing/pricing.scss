@@ -39,11 +39,10 @@
   overflow: hidden;
   padding: $space-double 0;
   background-color: var(--color-dashboard-bg);
-  background-image:
-          radial-gradient(46rem 38rem at 78% 8%,
-                  color-mix(in srgb, var(--color-highlight) 15%, transparent) 0%, transparent 68%),
-          radial-gradient(52rem 44rem at 8% 96%,
-                  color-mix(in srgb, var(--color-primary) 20%, transparent) 0%, transparent 68%);
+  background-image: radial-gradient(46rem 38rem at 78% 8%,
+  color-mix(in srgb, var(--color-highlight) 15%, transparent) 0%, transparent 68%),
+  radial-gradient(52rem 44rem at 8% 96%,
+          color-mix(in srgb, var(--color-primary) 20%, transparent) 0%, transparent 68%);
   background-repeat: no-repeat;
 
   > .container {
@@ -104,7 +103,23 @@
     width: 100%;
     max-width: 44rem;
     aspect-ratio: 1 / 0.7;
-    border: 1px dashed color-mix(in srgb, var(--color-highlight) 20%, transparent);
+    background: url('/img/telescope-base.png') center center no-repeat;
+    background-size: contain;
+    position: relative;
+    perspective: 10rem;
+
+    .dish {
+      width: 20%;
+      aspect-ratio: 1 / 1;
+      background: url('/img/telescope-bowl.png') center center no-repeat;
+      background-size: contain;
+      position: absolute;
+      right: 32%;
+      bottom: 33%;
+      transform: rotate(0deg);
+      transform-origin: 74% 77%;
+      animation: dish-tilt 30s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+    }
   }
 
   > .subscription-radar-caption {
@@ -404,7 +419,7 @@
   border-left: 0.3rem solid var(--color-highlight) !important;
   background-color: var(--color-alt-bg);
   background-image: radial-gradient(30rem 22rem at 84% 45%,
-          color-mix(in srgb, var(--color-primary) 32%, transparent) 0%, transparent 72%);
+  color-mix(in srgb, var(--color-primary) 32%, transparent) 0%, transparent 72%);
   background-repeat: no-repeat;
 
   h3 {
@@ -414,5 +429,20 @@
 
   .button {
     margin-bottom: 0;
+  }
+}
+
+@keyframes dish-tilt {
+  0%, 10% {
+    transform: rotate3d(0, 0, 0, 0);
+  }
+  35% {
+    transform: rotate3d(0.1, 0.3, 1, 10deg);
+  }
+  75% {
+    transform: rotate3d(0.1, -0.3, 1, -6deg);
+  }
+  95%, 100% {
+    transform: rotate3d(0, 0, 0, 0);
   }
 }

@@ -31,7 +31,11 @@ export default function HeroBlockView() {
                 </div>
                 <div className="column column-50">
                     <div className="subscription-radar">
-                        <div className="subscription-radar-art"/>
+                        <div className="subscription-radar-art">
+                            <div className="dish">
+
+                            </div>
+                        </div>
                         <div className="subscription-radar-caption">Indexing the network, continuously</div>
                     </div>
                 </div>
