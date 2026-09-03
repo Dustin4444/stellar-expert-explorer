@@ -22,7 +22,7 @@
     "lru-cache": "9.1.2",
     "mongodb": "7.5.0",
     "morgan": "1.11.0",
-    "qs": "6.15.3",
+    "qs": "6.16.0",
     "simple-git": "3.36.0"
   },
   "devDependencies": {
